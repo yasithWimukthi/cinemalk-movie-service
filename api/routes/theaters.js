@@ -29,4 +29,32 @@ router.get('/:ID', (req, res) => {
     })
 })
 
+// theaters: add new theater
+router.post('/', (req, res) => {
+    console.log('req', req.body);
+    const newTheater = new Theater({
+        name: req.body.name,
+        noOfSeats: req.body.noOfSeats,
+        address: req.body.address,
+        phone: req.body.phone
+    });
+    console.log('n', newTheater.name);
+
+    newTheater.save()
+        .then((result) => {
+            console.log('result: ', result);
+            res.status(201).json({
+                message: 'POST request', 
+                newTheater: newTheater
+            })
+        }).catch((err) => {
+            console.log(err.message);
+            res.status(500).json({
+                error: err.message
+            })
+    })
+})
+
+// theaters: update detais of a specific theater
+// theaters: delete theater
 module.exports = router;
