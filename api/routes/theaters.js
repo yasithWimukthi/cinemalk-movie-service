@@ -11,4 +11,22 @@ router.get('/', async (req, res) => {
     });
 })
 
+// theaters: get detais of a specific theater
+router.get('/:ID', (req, res) => {
+    const id = req.params.ID;
+    const findTheater = Theater.findById(id);
+    findTheater
+        .then((result) => {
+            res.status(200).json({
+                message: 'GET theater',
+                data: result
+            })            
+        })
+        .catch((err) => {
+            res.status(401).json({
+            error: err.message
+        })
+    })
+})
+
 module.exports = router;
