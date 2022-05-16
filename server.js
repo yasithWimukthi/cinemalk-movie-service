@@ -1,23 +1,42 @@
 const express = require('express');
 const mongoose = require('mongoose');
-const bodyParser = require('body-parser');
-const cors = require('cors');
-
 const dotenv = require('dotenv');
-
+const multer = require('multer')
+const morgan = require('morgan');
+const path = require("path");
+const fs = require("fs");
+const cors = require('cors')
 dotenv.config();
 
-const PORT = process.env.PORT || 3000;
+
+const movieRoutes = require('./api/routes/movie_routes');
+const PORT = process.env.PORT;
+
 
 const server = express();
+server.use(express.json());
+server.use(express.urlencoded({extended: false}));
+server.use(cors())
 
-server.use(cors());
-server.use(bodyParser.urlencoded({ extended: true }));
-server.use(bodyParser.json());
-// server.use(express.json());
+//storage config
+const storage = multer.diskStorage({
+    destination: path.join(__dirname, './uploads'),
+    filename: (req, file, cb) => {
+        console.log(file)
+        cb(null, new Date().getTime() + path.extname(file.originalname));
+    }
+});
 
-const theaterRoutes = require('./api/routes/theaters');
-server.use('/theaters', theaterRoutes);
+//logger config
+server.use(morgan('common', {
+    stream: fs.createWriteStream('./access.log', {flags: 'a'})
+}));
+
+
+server.use(multer({storage}).single('image'));
+server.use('/api/v1/movies', movieRoutes);
+
+
 
 const DB_CONNECTION_URL = `mongodb+srv://${process.env.DB_USERNAME}:${process.env.DB_PASSWORD}@cluster0.gtmij.mongodb.net/movie-theater`;
 
