@@ -1,7 +1,7 @@
 const express = require('express');
 const Movie_routes = require('../controllers/movie_controller');
-const validator = require('../validation/validation');
-const schema = require('../validation/movie_schema');
+const validator = require('../validations/validation');
+const schema = require('../validations/movie_schema');
 const router = express.Router();
 
 // get all movies
