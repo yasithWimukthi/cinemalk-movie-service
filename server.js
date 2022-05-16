@@ -36,7 +36,8 @@ server.use(morgan('common', {
 server.use(multer({storage}).single('image'));
 server.use('/api/v1/movies', movieRoutes);
 
-
+const theaterRoutes = require('./api/routes/theater_routes');
+server.use('/api/v1/theaters', theaterRoutes);
 
 const DB_CONNECTION_URL = `mongodb+srv://${process.env.DB_USERNAME}:${process.env.DB_PASSWORD}@cluster0.gtmij.mongodb.net/movie-theater`;
 
