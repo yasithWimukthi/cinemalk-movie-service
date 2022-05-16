@@ -9,7 +9,7 @@ const cors = require('cors')
 dotenv.config();
 
 
-const movieRoutes = require('./api/routes/movies');
+const movieRoutes = require('./api/routes/movie_routes');
 const PORT = process.env.PORT;
 
 
@@ -18,7 +18,7 @@ server.use(express.json());
 server.use(express.urlencoded({extended: false}));
 server.use(cors())
 
-
+//storage config
 const storage = multer.diskStorage({
     destination: path.join(__dirname, './uploads'),
     filename: (req, file, cb) => {
@@ -27,14 +27,14 @@ const storage = multer.diskStorage({
     }
 });
 
-
+//logger config
 server.use(morgan('common', {
     stream: fs.createWriteStream('./access.log', {flags: 'a'})
 }));
 
 
 server.use(multer({storage}).single('image'));
-server.use('/api/v1', movieRoutes);
+server.use('/api/v1/movies', movieRoutes);
 
 
 

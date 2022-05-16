@@ -1,14 +1,14 @@
 const cloudinary = require('cloudinary').v2;
-const Movie = require('../models/movie');
+const Movie = require('../models/movie_model');
 
-
+//cloud config
 cloudinary.config({
     cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
     api_key: process.env.CLOUDINARY_API_KEY,
     api_secret: process.env.CLOUDINARY_API_SECRET
 });
 
-
+//add a new movie
 const createMovie = async (req, res) => {
 
     try {
@@ -35,7 +35,7 @@ const createMovie = async (req, res) => {
     }
 }
 
-
+// get all movies
 const getMovies = async (req, res) => {
 
     try {
@@ -52,7 +52,7 @@ const getMovies = async (req, res) => {
     }
 }
 
-
+//update a movie by id
 const updateMovie = async (req, res) => {
 
     try {
@@ -79,7 +79,7 @@ const updateMovie = async (req, res) => {
     }
 }
 
-
+//delete movie by id
 const deleteMovie = async (req, res) => {
 
     try {
