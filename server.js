@@ -9,6 +9,8 @@ const cors = require('cors')
 dotenv.config();
 const movieRoutes = require('./api/routes/movie_routes');
 const theaterRoutes = require('./api/routes/theater_routes');
+const theaterDetailsRoutes = require('./api/routes/TheaterDetailsRoutes');
+
 
 const PORT = process.env.PORT;
 const server = express();
@@ -34,6 +36,8 @@ server.use(morgan('common', {
 server.use(multer({storage}).single('image'));
 server.use('/api/movies', movieRoutes);
 server.use('/api/theaters', theaterRoutes);
+server.use('/api/theaterDetails', theaterDetailsRoutes);
+
 
 const DB_CONNECTION_URL = `mongodb+srv://${process.env.DB_USERNAME}:${process.env.DB_PASSWORD}@cluster0.gtmij.mongodb.net/movie-theater`;
 
