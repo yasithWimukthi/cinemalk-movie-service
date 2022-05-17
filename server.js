@@ -10,8 +10,6 @@ dotenv.config();
 const movieRoutes = require('./api/routes/movie_routes');
 const theaterRoutes = require('./api/routes/theater_routes');
 
-
-
 const PORT = process.env.PORT;
 const server = express();
 server.use(express.json());
