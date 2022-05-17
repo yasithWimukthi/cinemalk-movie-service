@@ -31,8 +31,21 @@ const addMovieToTheater = async (req, res) => {
   }
 }
 
+const getAll = async (req, res) => {
+  try {
+    const theaterDetails = await TheaterDetails.find();
+    return res.status(200).json({
+      success: true,
+      theaterDetails,
+    });
+  } catch (error) {
+    console.log(error);
+  }
+}
+
 const modulesList = {
   addMovieToTheater,
+  getAll
 }
 
 module.exports = modulesList;
