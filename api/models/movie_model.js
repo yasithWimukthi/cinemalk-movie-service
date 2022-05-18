@@ -1,21 +1,29 @@
 const mongoose = require('mongoose');
 
+/**
+ * movie-name = title
+ * movie-img-src = poster
+ */
 const movieSchema = mongoose.Schema({
-    name: {
+    title: {
         type: String,
         required: true
     },
-    cast: {
+    release_date: {
         type: String,
         required: true
     },
-    description: {
+    overview: {
         type: String,
         required: true
     },
-    imageURL: {
+    poster: {
         type: String,
         required:true
+    },
+    genres: {
+        type: Array,
+        required: true
     },
     public_id:{
         type: String,

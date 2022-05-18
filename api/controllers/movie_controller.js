@@ -14,10 +14,11 @@ const createMovie = async (req, res) => {
     try {
         const result = await cloudinary.uploader.upload(req.file.path);
         const mv = new Movie({
-            name: req.body.name,
-            cast: req.body.cast,
-            description: req.body.description,
-            imageURL: result.url,
+            title: req.body.title,
+            released_date: req.body.released_date,
+            overview: req.body.overview,
+            genres: req.body.genres,
+            poster: result.poster,
             public_id: result.public_id
         });
 
@@ -61,9 +62,9 @@ const updateMovie = async (req, res) => {
                 res.status(500).send({message: "Could not find the movie"});
             }
 
-            movie.name = req.body.name
-            movie.cast = req.body.cast
-            movie.description = req.body.description
+            movie.title = req.body.title
+            movie.released_date = req.body.released_date
+            movie.overview = req.body.overview
 
             movie.save((err) => {
                 if (err) {

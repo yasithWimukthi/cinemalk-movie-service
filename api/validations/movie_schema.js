@@ -1,9 +1,10 @@
 const Joi = require('joi')
 
 const schema = Joi.object({
-    name: Joi.string().required(),
-    cast:  Joi.string().required(),
-    description: Joi.string().required()
+    title: Joi.string().required(),
+    released_date:  Joi.string().required(),
+    overview: Joi.string().required(),
+    genre: Joi.string().required()
 
 })
 module.exports = schema;
