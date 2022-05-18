@@ -15,7 +15,7 @@ const createMovie = async (req, res) => {
         const result = await cloudinary.uploader.upload(req.file.path);
         const mv = new Movie({
             title: req.body.title,
-            released_date: req.body.released_date,
+            release_date: req.body.release_date,
             overview: req.body.overview,
             genres: req.body.genres,
             poster: result.poster,
@@ -63,7 +63,7 @@ const updateMovie = async (req, res) => {
             }
 
             movie.title = req.body.title
-            movie.released_date = req.body.released_date
+            movie.release_date = req.body.release_date
             movie.overview = req.body.overview
 
             movie.save((err) => {
