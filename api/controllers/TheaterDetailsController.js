@@ -18,6 +18,7 @@ const addMovieToTheater = async (req, res) => {
         movieName: req.body.movieName,
         theater: [req.body.theater],
         imageURL: req.body.imageURL,
+        overview: req.body.overview,
       });
       await theaterDetails.save();
       return res.status(200).json({

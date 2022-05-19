@@ -9,6 +9,10 @@ const theaterDetailsSchema = mongoose.Schema({
         type: String,
         required:true
     },
+    overview:{
+        type: String,
+        required: true
+    },
     theater: [
         {
             name: {
