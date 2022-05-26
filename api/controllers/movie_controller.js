@@ -1,5 +1,6 @@
 const cloudinary = require('cloudinary').v2;
 const Movie = require('../models/movie_model');
+const Theater = require("../models/theater_model");
 
 //cloud config
 cloudinary.config({
@@ -10,7 +11,6 @@ cloudinary.config({
 
 //add a new movie
 const createMovie = async (req, res) => {
-
     try {
         const result = await cloudinary.uploader.upload(req.file.path);
         const mv = new Movie({
@@ -18,7 +18,7 @@ const createMovie = async (req, res) => {
             release_date: req.body.release_date,
             overview: req.body.overview,
             genres: req.body.genres,
-            poster: result.poster,
+            poster: result.url,
             public_id: result.public_id
         });
 
@@ -53,6 +53,31 @@ const getMovies = async (req, res) => {
     }
 }
 
+
+//get one movie
+const viewOneMovie = (req, res) => {
+    const id = req.params.id;
+    const findMovie = Movie.findById(id);
+    findMovie
+        .then((result) => {
+            res.status(200).json({
+                message: "found movie",
+                data: result,
+            });
+        })
+        .catch((err) => {
+            res.status(500).json({
+                error: err.message,
+            });
+        });
+}
+
+
+
+
+
+
+
 //update a movie by id
 const updateMovie = async (req, res) => {
 
@@ -63,7 +88,7 @@ const updateMovie = async (req, res) => {
             }
 
             movie.title = req.body.title
-            movie.release_date = req.body.release_date
+            movie.genres = req.body.genres
             movie.overview = req.body.overview
 
             movie.save((err) => {
@@ -122,7 +147,8 @@ const modulesList = {
     createMovie,
     getMovies,
     updateMovie,
-    deleteMovie
+    deleteMovie,
+    viewOneMovie
 }
 
 
